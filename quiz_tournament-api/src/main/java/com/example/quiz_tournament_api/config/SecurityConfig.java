@@ -78,6 +78,7 @@ public class SecurityConfig {
                         .requestMatchers("/quiz/*/play").permitAll()
                         .requestMatchers("/quiz/categories").permitAll()
                         .requestMatchers(HttpMethod.POST, "/quiz/*/score").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/forgot-password").permitAll() // Add this line
 
 
                         // Restricted endpoints

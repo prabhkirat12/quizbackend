@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -74,6 +75,7 @@ public class QuizController {
     @GetMapping("/{quizId}/participants")
     public ResponseEntity<List<UserQuizScore>> getQuizParticipants(@PathVariable Long quizId) {
         List<UserQuizScore> participants = quizService.getQuizScores(quizId);
+        System.out.println("Quiz ID: " + quizId + ", Participants Count: " + participants.size());
         return ResponseEntity.ok(participants);
     }
 
@@ -149,7 +151,11 @@ public class QuizController {
     @GetMapping("/user/{userId}/scores")
     public ResponseEntity<List<UserQuizScore>> getUserScores(@PathVariable Long userId) {
         List<UserQuizScore> scores = quizService.getUserScores(userId);
+        if (scores.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.emptyList());
+        }
         return ResponseEntity.ok(scores);
     }
+
 }
 

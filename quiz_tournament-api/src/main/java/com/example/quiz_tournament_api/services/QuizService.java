@@ -18,10 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -208,7 +205,8 @@ public class QuizService {
     }
 
     public List<UserQuizScore> getQuizScores(Long quizId) {
-        return userQuizScoreRepository.findByQuizId(quizId);
+        List<UserQuizScore> scores = userQuizScoreRepository.findByQuizId(quizId);
+        return scores != null ? scores : Collections.emptyList(); // Ensure it never returns null
     }
 
     public List<UserQuizScore> getUserScores(Long userId) {

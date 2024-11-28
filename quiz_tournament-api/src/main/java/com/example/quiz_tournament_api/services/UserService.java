@@ -102,6 +102,8 @@ public class UserService {
         }
         return false;
     }
+
+
     public void generatePasswordResetToken(String email) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User with this email not found"));
